@@ -1,27 +1,32 @@
 <?php 
 
 class Products {
-    public function __construct() {
-        echo "Este es el modelo de producto";
+
+    private $db;
+
+    public function __construct($db) {
+        $this->db = $db;
+        echo "Este es el modelo de producto ";
     }
 
     public function index() {   
-
+       $products = $this->db->query("SELECT * FROM products");
+       print_r($products);
     }
 
     public function show($id) {   
-
+        // Código para mostrar un producto específico
     }
 
     public function create() {   
-
+        // Código para crear un nuevo producto
     }
 
     public function update($id) {   
-
+        // Código para actualizar un producto existente
     }
 
     public function delete($id) {   
-
+        // Código para eliminar un producto
     }
 }
