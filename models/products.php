@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 class Products {
     private $db;
@@ -10,16 +10,14 @@ class Products {
 
     public function index() {
         $sql = "SELECT * FROM products";
-        $result = $this->db->query($sql); // Asegúrate de que esto retorna un objeto mysqli_result
+        $products = $this->db->query($sql);
 
-        $products = [];
-        while ($row = $result->fetch_assoc()) {
-            $products[] = (object) $row; // Convertir a objeto
-        }
-
-        return json_encode($products); // Convertir a JSON
+        return json_encode($products);
     }
 }
+
+
+
 
 
 

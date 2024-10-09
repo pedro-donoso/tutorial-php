@@ -20,7 +20,6 @@ class App {
 
         $this->connectDB();
         $this->loadModel($uriParts[0]);
-        $this->callMethod(); // No necesita pasar $uriParts aquí
     }
 
     private function connectDB(){
@@ -32,20 +31,19 @@ class App {
     }
 
     private function loadModel($modelName) {
-        $modelPath = "models/" . $modelName . ".php";
-        if (file_exists($modelPath)) {
-            require_once($modelPath);
+        if ($modelName != "") {
+            require_once("models/".$modelName.".php");
             $modelName = ucfirst($modelName);
+
             $this->model = new $modelName($this->db);
-        } else {
-            echo "Modelo " . $modelName . " no encontrado.";
+            $this->callMethod($this->model);
         }
     }
 
-    private function callMethod() {
+    private function callMethod($model) {
         $template = "";
         if (!isset($this->args[0])) {
-            $template = $this->model->index(); // Asegúrate de que esto retorna una cadena de texto
+            $template = $this->model->index();
         }
 
         $this->render($template);
@@ -54,12 +52,15 @@ class App {
     private function render($child) {
         $view = new Template("views/app.html", [
             "title" => "Tienda en línea",
-            "child" => $child
+            "child" => '<main><div class="container-fluid"><h1>Esta es la lista de productos</h1><p>La cantidad de productos es <span id="product-count"></span></p><table class="table table-striped"><thead><tr><th>Nombre</th><th>Precio</th></tr></thead><tbody id="product-list"></tbody></table></div><script>const products = JSON.parse(\'' . $child . '\'); document.getElementById("product-count").innerText = products.length; const productList = document.getElementById("product-list"); products.forEach(product => { const row = document.createElement("tr"); row.innerHTML = `<td>${product.name}</td><td>${product.price}</td>`; productList.appendChild(row); });</script></main>'
         ]);
         
         echo $view;
     }
 }
+
+
+
 
 
 
