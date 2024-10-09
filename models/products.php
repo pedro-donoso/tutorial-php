@@ -5,7 +5,7 @@ class Products {
 
     public function __construct($db) {
         $this->db = $db;
-        echo "Este es el modelo de producto";
+
     }
 
     public function index() {
