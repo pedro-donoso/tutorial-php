@@ -1,6 +1,7 @@
 <?php
 
 require_once("db.class.php");
+require_once("template.class.php");
 
 class App {
 
@@ -42,11 +43,24 @@ class App {
     }
 
     private function callMethod() {
+        $template = "";
         if (!isset($this->args[0])) {
-            $this->model->index(); // Aquí se usa $this->model
+            $template = $this->model->index(); // Aquí se usa $this->model
         }
+
+        $this->render($template);
+    }
+
+    private function render($child) {
+        $view = new Template("views/app.html", [
+            "title" => "Tienda en línea",
+            "child" => $child
+        ]);
+
+        echo $view;
     }
 }
+
 
 
 

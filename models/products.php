@@ -11,7 +11,10 @@ class Products {
 
     public function index() {   
        $products = $this->db->query("SELECT * FROM products");
-       print_r($products);
+       
+       return new Template("views/products/index.html", [
+        "products" => $products
+        ]);
     }
 
     public function show($id) {   
