@@ -19,15 +19,7 @@ class DB {
     }
 
     public function query($sql) {
-        $result = $this->db->query($sql);
-
-        $arr = [];
-
-        while ($row = $result->fetch_assoc()) {
-            $arr[] = $row;
-        }
-
-        return $arr;
+        return $this->db->query($sql);
     }
 }
 

@@ -45,7 +45,7 @@ class App {
     private function callMethod() {
         $template = "";
         if (!isset($this->args[0])) {
-            $template = $this->model->index(); // Aquí se usa $this->model
+            $template = $this->model->index(); // Asegúrate de que esto retorna una cadena de texto
         }
 
         $this->render($template);
@@ -56,10 +56,11 @@ class App {
             "title" => "Tienda en línea",
             "child" => $child
         ]);
-
+        
         echo $view;
     }
 }
+
 
 
 

@@ -1,5 +1,34 @@
-<main>
-    <div class="container-fluid">
-        <h1>Esta es la lista de productos</h1>
-    </div>
-</main>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Productos</title>
+</head>
+<body>
+    <main>
+        <div class="container-fluid">
+            <h1>Esta es la lista de productos</h1>
+            <p>La cantidad de productos es <span id="product-count"></span></p>
+            <ol id="product-list"></ol>
+        </div>
+    </main>
+
+    <script>
+        // Obtén los datos de productos desde PHP
+        const products = JSON.parse('<?= $child ?>');
+        
+        // Muestra la cantidad de productos
+        document.getElementById('product-count').innerText = products.length;
+
+        // Muestra la lista de productos
+        const productList = document.getElementById('product-list');
+        products.forEach(product => {
+            const listItem = document.createElement('li');
+            listItem.textContent = `Nombre: ${product.name} Precio: ${product.price}`;
+            productList.appendChild(listItem);
+        });
+    </script>
+</body>
+</html>
+
