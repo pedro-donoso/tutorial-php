@@ -1,11 +1,11 @@
-<?php 
+<?php
 
 class DB {
     private $db;
     private static $instance = null;
 
     private function __construct() {
-        $this->db = new mysqli("localhost", "Nicky", "nicky","tienda");
+        $this->db = new mysqli("localhost", "Nicky", "nicky", "tienda");
         if ($this->db->connect_error) {
             die("Connection failed: " . $this->db->connect_error);
         }
@@ -19,7 +19,7 @@ class DB {
     }
 
     public function query($sql) {
-        $result = $this->db->query($sql); 
+        $result = $this->db->query($sql);
 
         $arr = [];
 
@@ -30,4 +30,5 @@ class DB {
         return $arr;
     }
 }
+
 
