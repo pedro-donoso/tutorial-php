@@ -5,6 +5,7 @@ require_once("db.class.php");
 class App {
 
     private $db;
+    private $model;
 
     public function __construct(){
         $uri = $_SERVER["REQUEST_URI"];
@@ -24,12 +25,11 @@ class App {
     }
 
     public function loadModel($modelName) {
-        $modelPath = "models/" . $modelName . ".php"; // Ajusta la ruta a tus modelos
-        if (file_exists($modelPath)) {
-            require_once($modelPath);
-            echo "Cargando el modelo " . $modelName;
-        } else {
-            echo "Modelo " . $modelName . " no encontrado.";
-        }
+        require_once("models/".$modelName.".php");
+        $modelName = ucfirst($modelName);
+
+        // Asegúrate de pasar la instancia correcta
+        $this->model = new $modelName($this->db);
     }
 }
+
