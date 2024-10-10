@@ -8,42 +8,57 @@
 </head>
 <body>
     <main>
-        <div class="container-fluid">
-            <h1>Esta es la lista de productos</h1>
-            <p>La cantidad de productos es <span id="product-count"><?= count($products) ?></span></p>
-            <table class="table table-bordered table-hover">
-                <thead class="thead-dark">
-                    <tr>
-                        <th>Id</th>
-                        <th>Nombre</th>
-                        <th>Precio</th>
-                    </tr>
-                </thead>
-                <tbody id="product-list">
-                    <?php foreach ($products as $product) : ?>
-                        <tr>
-                            <td><?= $product->product_id ?></td>
-                            <td><a href="/products/<?= $product->product_id ?>"><?= $product->name ?></a></td>
-                            <td><?= $product->price ?></td>
-                        </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
-            <form method="POST" action="/products/add">
-                <div class="form-group">
-                    <label for="name">Nombre:</label>
-                    <input type="text" class="form-control" id="name" name="name" required>
+        <div class="container">
+            <div class="row py-4">
+                <div class="col-md-3">
+                    <form method="POST" action="/products/add">
+                        <h4>Nuevo producto</h4>
+                        <div class="form-group">
+                            <label for="name">Nombre:</label>
+                            <input type="text" class="form-control" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="price">Precio:</label>
+                            <input type="number" step="0.01" class="form-control" id="price" name="price" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Agregar</button>
+                    </form>
+                       
                 </div>
-                <div class="form-group">
-                    <label for="price">Precio:</label>
-                    <input type="number" step="0.01" class="form-control" id="price" name="price" required>
+                <div class="col-md-6">
+                    <table class="table table-bordered table-hover">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>Id</th>
+                                <th>Nombre</th>
+                                <th>Precio</th>
+                            </tr>
+                        </thead>
+                        <tbody id="product-list">
+                            <?php foreach ($products as $product) : ?>
+                                <tr>
+                                    <td><?= $product->product_id ?></td>
+                                    <td><a href="/products/<?= $product->product_id ?>"><?= $product->name ?></a></td>
+                                    <td><?= $product->price ?></td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
                 </div>
-                <button type="submit" class="btn btn-primary">Agregar Producto</button>
-            </form>
+                <div class="col-md-3">
+                    <h4>Total de Productos</h4>
+                    <p>Ingresados en la Base de Datos: <strong id="product-count"><?= count($products) ?></strong></p> 
+                </div>
+            </div>
         </div>
     </main>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
+
 
 
 
