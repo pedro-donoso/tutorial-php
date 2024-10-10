@@ -32,6 +32,7 @@
                                 <th>Id</th>
                                 <th>Nombre</th>
                                 <th>Precio</th>
+                                <th>Acciones</th>
                             </tr>
                         </thead>
                         <tbody id="product-list">
@@ -40,6 +41,11 @@
                                     <td><?= $product->product_id ?></td>
                                     <td><a href="/products/<?= $product->product_id ?>"><?= $product->name ?></a></td>
                                     <td><?= $product->price ?></td>
+                                    <td>
+                                        <form method="POST" action="/products/delete/<?= $product->product_id ?>">
+                                            <button type="submit" class="btn btn-danger" onclick="return confirm('¿Estás seguro de que deseas eliminar este producto?')">Eliminar</button>
+                                        </form>
+                                    </td>
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>

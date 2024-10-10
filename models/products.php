@@ -31,11 +31,27 @@ class Products {
     }
 
     public function addProduct($name, $price) {
-        $name = $this->db->escape($name);
-        $price = $this->db->escape($price);
-        $sql = "INSERT INTO products (name, price) VALUES ('$name', '$price')";
-        $this->db->query($sql);
+    $sql = "INSERT INTO products (name, price) VALUES (?, ?)";
+    $stmt = $this->db->prepare($sql);
+    $stmt->execute([$name, $price]);
+    return $this->db->lastInsertId();
+}
+
+    public function deleteProduct($id) {
+        $id = $this->db->escape($id);
+        $product = $this->db->queryOne("SELECT * FROM products WHERE product_id = " . $id);
+        if ($product) {
+            $sql = "DELETE FROM products WHERE product_id = " . $id;
+            $this->db->query($sql);
+            return true; // Producto eliminado con éxito
+        } else {
+            return false; // Producto no encontrado
+        }
     }
+
+    
+
+
 }
 
 

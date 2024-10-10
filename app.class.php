@@ -58,10 +58,14 @@ class App {
             $price = $_POST['price'] ?? '';
             $this->model->addProduct($name, $price);
             $template = $this->model->index();
+        } elseif ($this->args[1] === 'delete' && $_SERVER['REQUEST_METHOD'] === 'POST') {
+            $id = $this->args[2] ?? '';
+            $this->model->deleteProduct($id);
+            $template = $this->model->index();
         } elseif (is_numeric($this->args[1])) {
             $template = $this->model->show($this->args[1]);
         }
-
+    
         $this->render($template);
     }
 
@@ -76,6 +80,7 @@ class App {
         echo $view;
     }
 }
+
 
 
 

@@ -37,8 +37,21 @@ class DB {
     public function escape($str) {
         return $this->db->escape_string($str);
     }
-}
 
+    public function prepare($sql) {
+        return $this->db->prepare($sql);
+    }
+
+    public function execute($stmt, $params = array()) {
+        $stmt->bind_param(str_repeat('s', count($params)), ...$params);
+        $stmt->execute();
+        return $stmt;
+    }
+
+    public function lastInsertId() {
+        return $this->db->insert_id;
+    }
+}
 
 
 
